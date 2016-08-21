@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, react/forbid-prop-types */
 
 import React, { Component } from 'react';
-import assign from 'object-assign';
 import PropTypes from 'prop-types';
 import { isSameDay } from './DateUtils';
 import { hasOwnProp } from './Helpers';
-
-import defaultClassNames from './classNames';
 
 function handleEvent(handler, day, modifiers) {
   if (!handler) {
@@ -20,9 +17,7 @@ function handleEvent(handler, day, modifiers) {
 
 export default class Day extends Component {
   static propTypes = {
-    classNames: PropTypes.shape({
-      day: PropTypes.string.isRequired,
-    }).isRequired,
+    styling: PropTypes.func.isRequired,
 
     day: PropTypes.instanceOf(Date).isRequired,
     children: PropTypes.node.isRequired,
@@ -32,7 +27,6 @@ export default class Day extends Component {
     ariaSelected: PropTypes.bool,
     empty: PropTypes.bool,
     modifiers: PropTypes.object,
-    modifiersStyles: PropTypes.object,
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -43,6 +37,8 @@ export default class Day extends Component {
     onTouchStart: PropTypes.func,
     onFocus: PropTypes.func,
     tabIndex: PropTypes.number,
+
+    dayRef: PropTypes.func,
   };
 
   static defaultProps = {
@@ -51,7 +47,6 @@ export default class Day extends Component {
 
   static defaultProps = {
     modifiers: {},
-    modifiersStyles: {},
     empty: false,
   };
 
@@ -62,11 +57,7 @@ export default class Day extends Component {
       return true;
     }
     return propNames.some(name => {
-      if (
-        name === 'modifiers' ||
-        name === 'modifiersStyles' ||
-        name === 'classNames'
-      ) {
+      if (name === 'modifiers') {
         const prop = this.props[name];
         const nextProp = nextProps[name];
         const modifiers = Object.keys(prop);
@@ -89,8 +80,7 @@ export default class Day extends Component {
 
   render() {
     const {
-      classNames,
-      modifiersStyles,
+      styling,
       day,
       tabIndex,
       empty,
@@ -108,35 +98,17 @@ export default class Day extends Component {
       ariaDisabled,
       ariaSelected,
       children,
+      dayRef,
     } = this.props;
 
-    let className = classNames.day;
-    if (classNames !== defaultClassNames) {
-      // When using CSS modules prefix the modifier as required by the BEM syntax
-      className += ` ${Object.keys(modifiers).join(' ')}`;
-    } else {
-      className += Object.keys(modifiers)
-        .map(modifier => ` ${className}--${modifier}`)
-        .join('');
-    }
-
-    let style;
-    if (modifiersStyles) {
-      Object.keys(modifiers)
-        .filter(modifier => !!modifiersStyles[modifier])
-        .forEach(modifier => {
-          style = assign({}, style, modifiersStyles[modifier]);
-        });
-    }
-
     if (empty) {
-      return <div aria-disabled className={className} style={style} />;
+      return <div aria-disabled {...styling('day', day, modifiers, true)} />;
     }
     return (
       <div
-        className={className}
+        {...styling('day', day, modifiers)}
+        ref={modifiers.outside ? null : dayRef}
         tabIndex={tabIndex}
-        style={style}
         role="gridcell"
         aria-label={ariaLabel}
         aria-disabled={ariaDisabled}

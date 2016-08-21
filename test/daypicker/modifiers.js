@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import DayPicker from '../../src/DayPicker';
+import createStylingFromTheme from '../../src/createStylingFromTheme';
 
 describe('DayPicker’s day modifiers', () => {
   it('should use `selectedDays` prop as `selected` modifier', () => {
@@ -20,7 +21,12 @@ describe('DayPicker’s day modifiers', () => {
       <DayPicker
         initialMonth={new Date(2015, 6)}
         modifiers={{ foo: () => true }}
-        modifiersStyles={{ foo: { background: 'red' } }}
+        styling={createStylingFromTheme({
+          day: ({ className }, day, modifiers) => ({
+            className,
+            style: modifiers.foo && { background: 'red' },
+          }),
+        })}
       />
     );
     expect(wrapper.find('.DayPicker-Day--foo').at(0)).toHaveStyle(

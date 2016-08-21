@@ -1,5 +1,5 @@
 {
-  "name": "react-day-picker",
+  "name": "react-day-picker-themeable",
   "version": "7.0.5",
   "description": "Flexible date picker component for React",
   "main": "DayPicker.js",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gpbl/react-day-picker.git"
+    "url": "https://github.com/alexkuz/react-day-picker-themeable.git"
   },
   "keywords": [
     "react",
@@ -48,9 +48,9 @@
   "author": "Giampaolo Bellavite <io@gpbl.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gpbl/react-day-picker/issues"
+    "url": "https://github.com/alexkuz/react-day-picker-themeable/issues"
   },
-  "homepage": "https://react-day-picker.js.org",
+  "homepage": "https://github.com/alexkuz/react-day-picker-themeable",
   "peerDependencies": {
     "react": "~0.13.x || ~0.14.x || ^15.0.0 || ^16.0.0"
   },
@@ -99,6 +99,8 @@
   },
   "dependencies": {
     "object-assign": "^4.1.1",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "react-base16-styling": "^0.6.0",
+    "react-is-deprecated": "0.1.2"
   }
 }

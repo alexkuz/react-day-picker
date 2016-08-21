@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import createStylingFromTheme from './createStylingFromTheme';
 
-import defaultClassNames from './classNames';
 import { SPACE, ENTER } from './keys';
 
 export default class Navbar extends Component {
   static defaultProps = {
-    classNames: defaultClassNames,
     dir: 'ltr',
     labels: {
       previousMonth: 'Previous Month',
@@ -17,12 +16,6 @@ export default class Navbar extends Component {
   };
 
   static propTypes = {
-    classNames: PropTypes.shape({
-      navBar: PropTypes.string.isRequired,
-      navButtonPrev: PropTypes.string.isRequired,
-      navButtonNext: PropTypes.string.isRequired,
-    }),
-    className: PropTypes.string,
     showPreviousButton: PropTypes.bool,
     showNextButton: PropTypes.bool,
     onPreviousClick: PropTypes.func,
@@ -32,6 +25,8 @@ export default class Navbar extends Component {
       previousMonth: PropTypes.string.isRequired,
       nextMonth: PropTypes.string.isRequired,
     }),
+    styling: PropTypes.func,
+    theme: PropTypes.any,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -73,12 +68,12 @@ export default class Navbar extends Component {
 
   render() {
     const {
-      classNames,
-      className,
       showPreviousButton,
       showNextButton,
       labels,
       dir,
+      styling,
+      theme,
     } = this.props;
 
     let previousClickHandler;
@@ -104,17 +99,7 @@ export default class Navbar extends Component {
       shouldShowPrevious = showPreviousButton;
     }
 
-    const previousClassName = shouldShowPrevious
-      ? classNames.navButtonPrev
-      : `${classNames.navButtonPrev} ${
-          classNames.navButtonInteractionDisabled
-        }`;
-
-    const nextClassName = shouldShowNext
-      ? classNames.navButtonNext
-      : `${classNames.navButtonNext} ${
-          classNames.navButtonInteractionDisabled
-        }`;
+    const navBarStyling = styling || createStylingFromTheme(theme);
 
     const previousButton = (
       <span
@@ -122,7 +107,7 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.previousMonth}
         key="previous"
-        className={previousClassName}
+        {...navBarStyling('navButton', 'prev', shouldShowPrevious)}
         onKeyDown={shouldShowPrevious ? previousKeyDownHandler : undefined}
         onClick={shouldShowPrevious ? previousClickHandler : undefined}
       />
@@ -134,14 +119,14 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.nextMonth}
         key="right"
-        className={nextClassName}
+        {...navBarStyling('navButton', 'next', shouldShowNext)}
         onKeyDown={shouldShowNext ? nextKeyDownHandler : undefined}
         onClick={shouldShowNext ? nextClickHandler : undefined}
       />
     );
 
     return (
-      <div className={className || classNames.navBar}>
+      <div {...navBarStyling('navBar', dir)}>
         {dir === 'rtl'
           ? [nextButton, previousButton]
           : [previousButton, nextButton]}

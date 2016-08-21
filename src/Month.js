@@ -11,13 +11,7 @@ import * as DateUtils from './DateUtils';
 
 export default class Month extends Component {
   static propTypes = {
-    classNames: PropTypes.shape({
-      body: PropTypes.string.isRequired,
-      month: PropTypes.string.isRequired,
-      outside: PropTypes.string.isRequired,
-      today: PropTypes.string.isRequired,
-      week: PropTypes.string.isRequired,
-    }).isRequired,
+    styling: PropTypes.func.isRequired,
     tabIndex: PropTypes.number,
 
     month: PropTypes.instanceOf(Date).isRequired,
@@ -62,7 +56,11 @@ export default class Month extends Component {
     onDayTouchEnd: PropTypes.func,
     onDayTouchStart: PropTypes.func,
     onWeekClick: PropTypes.func,
+
+    dayRef: PropTypes.func.isRequired,
   };
+
+  dayRefs = [];
 
   renderDay = day => {
     const monthNumber = this.props.month.getMonth();
@@ -70,15 +68,12 @@ export default class Month extends Component {
     const dayModifiers = ModifiersUtils.getModifiersForDay(day, propModifiers);
     if (
       DateUtils.isSameDay(day, new Date()) &&
-      !Object.prototype.hasOwnProperty.call(
-        propModifiers,
-        this.props.classNames.today
-      )
+      !Object.prototype.hasOwnProperty.call(propModifiers, 'today')
     ) {
-      dayModifiers.push(this.props.classNames.today);
+      dayModifiers.push('today');
     }
     if (day.getMonth() !== monthNumber) {
-      dayModifiers.push(this.props.classNames.outside);
+      dayModifiers.push('outside');
     }
 
     const isOutside = day.getMonth() !== monthNumber;
@@ -96,8 +91,9 @@ export default class Month extends Component {
     return (
       <Day
         key={`${isOutside ? 'outside-' : ''}${key}`}
-        classNames={this.props.classNames}
+        styling={this.props.styling}
         day={day}
+        dayRef={this.props.dayRef}
         modifiers={modifiers}
         modifiersStyles={this.props.modifiersStyles}
         empty={
@@ -124,7 +120,7 @@ export default class Month extends Component {
 
   render() {
     const {
-      classNames,
+      styling,
 
       month,
       months,
@@ -148,7 +144,7 @@ export default class Month extends Component {
 
     const captionProps = {
       date: month,
-      classNames,
+      styling,
       months,
       localeUtils,
       locale,
@@ -160,11 +156,11 @@ export default class Month extends Component {
 
     const weeks = Helpers.getWeekArray(month, firstDayOfWeek, fixedWeeks);
     return (
-      <div className={classNames.month} role="grid">
+      <div {...styling('month', locale)} role="grid">
         {caption}
         {showWeekDays && (
           <Weekdays
-            classNames={classNames}
+            styling={styling}
             weekdaysShort={weekdaysShort}
             weekdaysLong={weekdaysLong}
             firstDayOfWeek={firstDayOfWeek}
@@ -174,8 +170,8 @@ export default class Month extends Component {
             weekdayElement={weekdayElement}
           />
         )}
-        <div className={classNames.body} role="rowgroup">
-          {weeks.map(week => {
+        <div {...styling('body', locale)} role="rowgroup">
+          {weeks.map((week, i) => {
             let weekNumber;
             if (showWeekNumbers) {
               weekNumber = DateUtils.getWeekNumber(week[0]);
@@ -183,12 +179,12 @@ export default class Month extends Component {
             return (
               <div
                 key={week[0].getTime()}
-                className={classNames.week}
+                {...styling('week', i, locale)}
                 role="row"
               >
                 {showWeekNumbers && (
                   <div
-                    className={classNames.weekNumber}
+                    {...styling('weekNumber', locale)}
                     tabIndex={0}
                     role="gridcell"
                     onClick={

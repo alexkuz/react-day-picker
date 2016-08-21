@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class Weekday extends Component {
   static propTypes = {
     weekday: PropTypes.number,
-    className: PropTypes.string,
+    styling: PropTypes.func.isRequired,
     locale: PropTypes.string,
     localeUtils: PropTypes.object,
 
@@ -17,11 +17,11 @@ export default class Weekday extends Component {
   render() {
     const {
       weekday,
-      className,
       weekdaysLong,
       weekdaysShort,
       localeUtils,
       locale,
+      styling,
     } = this.props;
     let title;
     if (weekdaysLong) {
@@ -37,7 +37,7 @@ export default class Weekday extends Component {
     }
 
     return (
-      <div className={className} role="columnheader">
+      <div {...styling('weekday', weekday, locale)} role="columnheader">
         <abbr title={title}>{content}</abbr>
       </div>
     );

@@ -12,9 +12,7 @@ export default class Caption extends Component {
     locale: PropTypes.string,
     localeUtils: PropTypes.object,
     onClick: PropTypes.func,
-    classNames: PropTypes.shape({
-      caption: PropTypes.string.isRequired,
-    }).isRequired,
+    styling: PropTypes.func,
   };
 
   static defaultProps = {
@@ -29,7 +27,7 @@ export default class Caption extends Component {
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.locale !== this.props.locale ||
-      nextProps.classNames !== this.props.classNames ||
+      nextProps.styling !== this.props.styling ||
       nextProps.date.getMonth() !== this.props.date.getMonth() ||
       nextProps.date.getFullYear() !== this.props.date.getFullYear()
     );
@@ -42,16 +40,9 @@ export default class Caption extends Component {
   }
 
   render() {
-    const {
-      classNames,
-      date,
-      months,
-      locale,
-      localeUtils,
-      onClick,
-    } = this.props;
+    const { styling, date, months, locale, localeUtils, onClick } = this.props;
     return (
-      <div className={classNames.caption} role="heading">
+      <div {...styling('caption', date, locale)} role="heading">
         <div onClick={onClick} onKeyUp={this.handleKeyUp}>
           {months
             ? `${months[date.getMonth()]} ${date.getFullYear()}`

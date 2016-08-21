@@ -5,6 +5,8 @@ import DayPicker from './DayPicker';
 import { getModifiersForDay } from './ModifiersUtils';
 import { ESC } from './keys';
 
+import createStylingFromTheme from './createStylingFromTheme';
+
 // When clicking on a day cell, overlay will be hidden after this timeout
 export const HIDE_TIMEOUT = 100;
 
@@ -69,11 +71,8 @@ export default class DayPickerInput extends React.Component {
     component: PropTypes.any,
     overlayComponent: PropTypes.any,
 
-    classNames: PropTypes.shape({
-      container: PropTypes.string,
-      overlayWrapper: PropTypes.string,
-      overlay: PropTypes.string.isRequired,
-    }),
+    styling: PropTypes.func,
+    theme: PropTypes.string,
 
     onDayChange: PropTypes.func,
     onChange: PropTypes.func,
@@ -95,16 +94,11 @@ export default class DayPickerInput extends React.Component {
     clickUnselectsDay: false,
     component: 'input',
     inputProps: {},
-    overlayComponent: ({ children, classNames }) => (
-      <div className={classNames.overlayWrapper}>
-        <div className={classNames.overlay}>{children}</div>
+    overlayComponent: ({ children, styling }) => (
+      <div {...styling('inputOverlayWrapper')}>
+        <div {...styling('inputOverlay')}>{children}</div>
       </div>
     ),
-    classNames: {
-      container: 'DayPickerInput',
-      overlayWrapper: 'DayPickerInput-OverlayWrapper',
-      overlay: 'DayPickerInput-Overlay',
-    },
   };
 
   constructor(props) {
@@ -387,9 +381,8 @@ export default class DayPickerInput extends React.Component {
     });
   }
 
-  renderOverlay() {
+  renderOverlay(styling) {
     const {
-      classNames,
       dayPickerProps,
       parseDate,
       formatDate,
@@ -418,7 +411,7 @@ export default class DayPickerInput extends React.Component {
     const Overlay = this.props.overlayComponent;
     return (
       <Overlay
-        classNames={classNames}
+        styling={styling}
         month={this.state.month}
         selectedDay={selectedDay}
         input={this.input}
@@ -431,6 +424,7 @@ export default class DayPickerInput extends React.Component {
           selectedDays={selectedDay}
           onDayClick={this.handleDayClick}
           onMonthChange={month => this.setState({ month })}
+          styling={styling}
         />
       </Overlay>
     );
@@ -438,9 +432,12 @@ export default class DayPickerInput extends React.Component {
 
   render() {
     const Input = this.props.component;
+    const styling =
+      this.props.styling || createStylingFromTheme(this.props.theme);
+
     return (
       <div
-        className={this.props.classNames.container}
+        {...styling('inputContainer')}
         onMouseDown={this.handleContainerMouseDown}
       >
         <Input
@@ -454,7 +451,7 @@ export default class DayPickerInput extends React.Component {
           onKeyUp={this.handleInputKeyUp}
           onClick={this.handleInputClick}
         />
-        {this.state.showOverlay && this.renderOverlay()}
+        {this.state.showOverlay && this.renderOverlay(styling)}
       </div>
     );
   }

@@ -3,7 +3,26 @@ import { shallow, mount } from 'enzyme';
 
 import DayPicker from '../../src/DayPicker';
 import * as keys from '../../src/keys';
-import defaultClassNames from '../../src/classNames';
+
+import createStylingFromTheme, { cn } from '../../src/createStylingFromTheme';
+
+const fakeOutsideStyling = createStylingFromTheme({
+  day: ({ style, className }, day, modifiers) => ({
+    style,
+    className: cn(
+      'DayPicker-Day',
+      Object.keys(modifiers)
+        .map(
+          modifier =>
+            modifier === 'outside'
+              ? 'fakeOutside'
+              : `DayPicker-Day--${modifier}`
+        )
+        .join(' '),
+      className
+    ),
+  }),
+});
 
 describe('DayPicker’s navigation', () => {
   it('should not allow the previous month when the first month is the first allowed one', () => {
@@ -63,7 +82,7 @@ describe('DayPicker’s navigation', () => {
       <DayPicker
         initialMonth={new Date(2015, 7)}
         showOutsideDays
-        classNames={{ ...defaultClassNames, outside: 'fakeOutside' }}
+        styling={fakeOutsideStyling}
         onDayClick={() => {}}
       />
     );
@@ -103,7 +122,7 @@ describe('DayPicker’s navigation', () => {
       <DayPicker
         initialMonth={new Date(2015, 7)}
         showOutsideDays
-        classNames={{ ...defaultClassNames, outside: 'fakeOutside' }}
+        styling={fakeOutsideStyling}
         onDayClick={() => {}}
       />
     );
@@ -271,7 +290,7 @@ describe('DayPicker’s navigation', () => {
             !node.hasClass('othermonth') &&
             !node.hasClass('another-othermonth-class')
         );
-    const classes = {
+    const styling = createStylingFromTheme({
       container: 'datepicker',
       interactionDisabled: 'interaction-disabled',
       navBar: 'navbar',
@@ -284,15 +303,21 @@ describe('DayPicker’s navigation', () => {
       weekday: 'weekday',
       body: 'body',
       week: 'week',
-      day: 'day another-day-class',
+      day: ({ className }, day, modifiers) => ({
+        className: cn(
+          className,
+          'day another-day-class',
+          modifiers.outside && 'othermonth another-othermonth-class'
+        ),
+      }),
       today: 'today',
       selected: 'selected',
       outside: 'othermonth another-othermonth-class',
       disabled: 'disabled',
-    };
+    });
 
     it('should call `focusNextDay()` when the RIGHT key is pressed on a day', () => {
-      const wrapper = mount(<DayPicker classNames={classes} />);
+      const wrapper = mount(<DayPicker styling={styling} />);
       const focusNextDay = jest.spyOn(wrapper.instance(), 'focusNextDay');
       getDaysInMonth(wrapper)
         .first()
@@ -301,7 +326,7 @@ describe('DayPicker’s navigation', () => {
       focusNextDay.mockReset();
     });
     it('should call `focusPreviousDay()` when the LEFT key is pressed on a day', () => {
-      const wrapper = mount(<DayPicker classNames={classes} />);
+      const wrapper = mount(<DayPicker styling={styling} />);
       const focusPreviousDay = jest.spyOn(
         wrapper.instance(),
         'focusPreviousDay'
@@ -313,7 +338,7 @@ describe('DayPicker’s navigation', () => {
       focusPreviousDay.mockReset();
     });
     it('should call `focusNextWeek()` when the DOWN key is pressed on a day', () => {
-      const wrapper = mount(<DayPicker classNames={classes} />);
+      const wrapper = mount(<DayPicker styling={styling} />);
       const focusNextWeek = jest.spyOn(wrapper.instance(), 'focusNextWeek');
       getDaysInMonth(wrapper)
         .first()
@@ -322,7 +347,7 @@ describe('DayPicker’s navigation', () => {
       focusNextWeek.mockReset();
     });
     it('should call `focusPreviousWeek()` when the UP key is pressed on a day', () => {
-      const wrapper = mount(<DayPicker classNames={classes} />);
+      const wrapper = mount(<DayPicker styling={styling} />);
       const focusPreviousWeek = jest.spyOn(
         wrapper.instance(),
         'focusPreviousWeek'

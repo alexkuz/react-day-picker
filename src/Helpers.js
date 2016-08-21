@@ -23,10 +23,10 @@ export function getDaysInMonth(d) {
 export function getModifiersFromProps(props) {
   const modifiers = { ...props.modifiers };
   if (props.selectedDays) {
-    modifiers[props.classNames.selected] = props.selectedDays;
+    modifiers.selected = props.selectedDays;
   }
   if (props.disabledDays) {
-    modifiers[props.classNames.disabled] = props.disabledDays;
+    modifiers.disabled = props.disabledDays;
   }
   return modifiers;
 }
@@ -121,20 +121,6 @@ export function startOfMonth(d) {
   newDate.setDate(1);
   newDate.setHours(12, 0, 0, 0); // always set noon to avoid time zone issues
   return newDate;
-}
-
-export function getDayNodes(node, classNames) {
-  let outsideClassName;
-  if (classNames === defaultClassNames) {
-    // When using CSS modules prefix the modifier as required by the BEM syntax
-    outsideClassName = `${classNames.day}--${classNames.outside}`;
-  } else {
-    outsideClassName = `${classNames.outside}`;
-  }
-  const dayQuery = classNames.day.replace(/ /g, '.');
-  const outsideDayQuery = outsideClassName.replace(/ /g, '.');
-  const selector = `.${dayQuery}:not(.${outsideDayQuery})`;
-  return node.querySelectorAll(selector);
 }
 
 export function nodeListToArray(nodeList) {

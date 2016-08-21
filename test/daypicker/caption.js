@@ -4,6 +4,9 @@ import { mount } from 'enzyme';
 import Caption from '../../src/Caption';
 
 import { ENTER, SPACE } from '../../src/keys';
+import createStylingFromTheme from '../../src/createStylingFromTheme';
+
+const defaultStyling = createStylingFromTheme(undefined);
 
 describe('DayPicker’s Caption', () => {
   it('should call the `onClick` event handler', () => {
@@ -11,8 +14,8 @@ describe('DayPicker’s Caption', () => {
     const wrapper = mount(
       <Caption
         date={new Date()}
-        classNames={{ caption: 'foo' }}
         onClick={handleCaptionClick}
+        styling={defaultStyling}
       />
     );
     wrapper
@@ -27,8 +30,8 @@ describe('DayPicker’s Caption', () => {
     const wrapper = mount(
       <Caption
         date={new Date()}
-        classNames={{ caption: 'foo' }}
         onClick={handleCaptionClick}
+        styling={defaultStyling}
       />
     );
     wrapper
@@ -43,8 +46,8 @@ describe('DayPicker’s Caption', () => {
     const wrapper = mount(
       <Caption
         date={new Date()}
-        classNames={{ caption: 'foo' }}
         onClick={handleCaptionClick}
+        styling={defaultStyling}
       />
     );
     wrapper
