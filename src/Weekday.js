@@ -7,7 +7,6 @@ export default class Weekday extends Component {
     styling: PropTypes.func.isRequired,
     locale: PropTypes.string,
     localeUtils: PropTypes.object,
-
     weekdaysLong: PropTypes.arrayOf(PropTypes.string),
     weekdaysShort: PropTypes.arrayOf(PropTypes.string),
   };
@@ -37,7 +36,7 @@ export default class Weekday extends Component {
     }
 
     return (
-      <div {...styling('weekday', weekday, locale)} role="columnheader">
+      <div {...styling('dayPickerWeekday', weekday, locale)} role="columnheader">
         <abbr title={title}>{content}</abbr>
       </div>
     );

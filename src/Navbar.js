@@ -107,7 +107,7 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.previousMonth}
         key="previous"
-        {...navBarStyling('navButton', 'prev', shouldShowPrevious)}
+        {...navBarStyling('dayPickerNavButton', 'prev', shouldShowPrevious)}
         onKeyDown={shouldShowPrevious ? previousKeyDownHandler : undefined}
         onClick={shouldShowPrevious ? previousClickHandler : undefined}
       />
@@ -119,14 +119,14 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.nextMonth}
         key="right"
-        {...navBarStyling('navButton', 'next', shouldShowNext)}
+        {...navBarStyling('dayPickerNavButton', 'next', shouldShowNext)}
         onKeyDown={shouldShowNext ? nextKeyDownHandler : undefined}
         onClick={shouldShowNext ? nextClickHandler : undefined}
       />
     );
 
     return (
-      <div {...navBarStyling('navBar', dir)}>
+      <div {...navBarStyling('dayPickerNavBar', dir)}>
         {dir === 'rtl'
           ? [nextButton, previousButton]
           : [previousButton, nextButton]}

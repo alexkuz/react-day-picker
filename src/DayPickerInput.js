@@ -95,8 +95,8 @@ export default class DayPickerInput extends React.Component {
     component: 'input',
     inputProps: {},
     overlayComponent: ({ children, styling }) => (
-      <div {...styling('inputOverlayWrapper')}>
-        <div {...styling('inputOverlay')}>{children}</div>
+      <div {...styling('dayPickerInputOverlayWrapper')}>
+        <div {...styling('dayPickerInputOverlay')}>{children}</div>
       </div>
     ),
   };
@@ -437,7 +437,7 @@ export default class DayPickerInput extends React.Component {
 
     return (
       <div
-        {...styling('inputContainer')}
+        {...styling('dayPickerInputContainer')}
         onMouseDown={this.handleContainerMouseDown}
       >
         <Input

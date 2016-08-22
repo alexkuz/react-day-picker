@@ -22,7 +22,7 @@ describe('DayPicker’s day modifiers', () => {
         initialMonth={new Date(2015, 6)}
         modifiers={{ foo: () => true }}
         styling={createStylingFromTheme({
-          day: ({ className }, day, modifiers) => ({
+          dayPickerDay: ({ className }, day, modifiers) => ({
             className,
             style: modifiers.foo && { background: 'red' },
           }),

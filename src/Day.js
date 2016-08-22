@@ -102,11 +102,11 @@ export default class Day extends Component {
     } = this.props;
 
     if (empty) {
-      return <div aria-disabled {...styling('day', day, modifiers, true)} />;
+      return <div aria-disabled {...styling('dayPickerDay', day, modifiers, true)} />;
     }
     return (
       <div
-        {...styling('day', day, modifiers)}
+        {...styling('dayPickerDay', day, modifiers)}
         ref={modifiers.outside ? null : dayRef}
         tabIndex={tabIndex}
         role="gridcell"

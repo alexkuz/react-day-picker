@@ -192,7 +192,7 @@ describe('DayPicker’s rendering', () => {
   });
   it('should render a custom navbar element', () => {
     const CustomNavbar = ({ styling }) => (
-      <div {...styling('navBar')}>Navbar</div>
+      <div {...styling('dayPickerNavBar')}>Navbar</div>
     );
     CustomNavbar.propTypes = { styling: PropTypes.func };
     const navbar = <CustomNavbar />;
@@ -206,7 +206,7 @@ describe('DayPicker’s rendering', () => {
   });
   it('should render a custom navbar element as a function', () => {
     const CustomNavbar = ({ styling }) => (
-      <div {...styling('navBar')}>Navbar</div>
+      <div {...styling('dayPickerNavBar')}>Navbar</div>
     );
     CustomNavbar.propTypes = { styling: PropTypes.func };
     const wrapper = mount(<DayPicker navbarElement={CustomNavbar} />);
@@ -221,7 +221,7 @@ describe('DayPicker’s rendering', () => {
     class CustomNavbar extends React.Component {
       static propTypes = { styling: PropTypes.func };
       render() {
-        return <div {...this.props.styling('navBar')}>Navbar</div>;
+        return <div {...this.props.styling('dayPickerNavBar')}>Navbar</div>;
       }
     }
     const wrapper = mount(<DayPicker navbarElement={CustomNavbar} />);
@@ -234,7 +234,7 @@ describe('DayPicker’s rendering', () => {
   });
   it('should render a custom weekday element', () => {
     const CustomWeekday = ({ styling, weekday }) => (
-      <div {...styling('weekday')}>{weekday}</div>
+      <div {...styling('dayPickerWeekday')}>{weekday}</div>
     );
     CustomWeekday.propTypes = {
       styling: PropTypes.func,
@@ -254,7 +254,7 @@ describe('DayPicker’s rendering', () => {
   });
   it('should render a custom weekday element as a function', () => {
     const CustomWeekday = ({ styling, weekday }) => (
-      <div {...styling('weekday')}>{weekday}</div>
+      <div {...styling('dayPickerWeekday')}>{weekday}</div>
     );
     CustomWeekday.propTypes = {
       styling: PropTypes.func,
@@ -280,7 +280,7 @@ describe('DayPicker’s rendering', () => {
       };
       render() {
         return (
-          <div {...this.props.styling('weekday')}>{this.props.weekday}</div>
+          <div {...this.props.styling('dayPickerWeekday')}>{this.props.weekday}</div>
         );
       }
     }

@@ -156,7 +156,7 @@ export default class Month extends Component {
 
     const weeks = Helpers.getWeekArray(month, firstDayOfWeek, fixedWeeks);
     return (
-      <div {...styling('month', locale)} role="grid">
+      <div {...styling('dayPickerMonth', locale)} role="grid">
         {caption}
         {showWeekDays && (
           <Weekdays
@@ -170,7 +170,7 @@ export default class Month extends Component {
             weekdayElement={weekdayElement}
           />
         )}
-        <div {...styling('body', locale)} role="rowgroup">
+        <div {...styling('dayPickerMonthWrapper', locale)} role="rowgroup">
           {weeks.map((week, i) => {
             let weekNumber;
             if (showWeekNumbers) {
@@ -179,12 +179,12 @@ export default class Month extends Component {
             return (
               <div
                 key={week[0].getTime()}
-                {...styling('week', i, locale)}
+                {...styling('dayPickerWeek', i, locale)}
                 role="row"
               >
                 {showWeekNumbers && (
                   <div
-                    {...styling('weekNumber', locale)}
+                    {...styling('dayPickerWeekNumber', locale)}
                     tabIndex={0}
                     role="gridcell"
                     onClick={

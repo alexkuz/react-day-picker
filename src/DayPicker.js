@@ -400,6 +400,22 @@ export default class DayPicker extends Component {
     }
   };
 
+  handleDayMouseEnter = (e, day, dayState) => {
+    this.setState({ hoveredDay: day });
+
+    if (this.props.onDayMouseEnter) {
+      this.props.onDayMouseEnter(e, day, dayState);
+    }
+  }
+
+  handleDayMouseLeave = (e, day, dayState) => {
+    this.setState({ hoveredDay: null });
+
+    if (this.props.onDayMouseLeave) {
+      this.props.onDayMouseLeave(e, day, dayState);
+    }
+  }
+
   handleOutsideDayClick(day) {
     const { currentMonth } = this.state;
     const { numberOfMonths } = this.props;
@@ -487,7 +503,7 @@ export default class DayPicker extends Component {
   renderFooter(styling) {
     if (this.props.todayButton) {
       return (
-        <div {...styling('footer', this.props.locale)}>
+        <div {...styling('dayPickerFooter', this.props.locale)}>
           {this.renderTodayButton(styling)}
         </div>
       );
@@ -500,7 +516,7 @@ export default class DayPicker extends Component {
       <button
         type="button"
         tabIndex={0}
-        {...styling('todayButton', this.props.locale)}
+        {...styling('dayPickerTodayButton', this.props.locale)}
         aria-label={this.props.todayButton}
         onClick={this.handleTodayButtonClick}
       >
@@ -528,7 +544,7 @@ export default class DayPicker extends Component {
         lang={this.props.locale}
       >
         <div
-          {...styling('wrapper', this.props.locale)}
+          {...styling('dayPickerWrapper', this.props.locale)}
           tabIndex={
             this.props.canChangeMonth && this.props.tabIndex
               ? this.props.tabIndex
@@ -539,7 +555,7 @@ export default class DayPicker extends Component {
           onBlur={this.props.onBlur}
         >
           {this.renderNavbar(styling)}
-          <div {...styling('months', this.props.locale)}>
+          <div {...styling('dayPickerMonths', this.props.locale)}>
             {this.renderMonths(styling)}
           </div>
           {this.renderFooter(styling)}

@@ -7,7 +7,7 @@ import * as keys from '../../src/keys';
 import createStylingFromTheme, { cn } from '../../src/createStylingFromTheme';
 
 const fakeOutsideStyling = createStylingFromTheme({
-  day: ({ style, className }, day, modifiers) => ({
+  dayPickerDay: ({ style, className }, day, modifiers) => ({
     style,
     className: cn(
       'DayPicker-Day',
@@ -291,29 +291,22 @@ describe('DayPicker’s navigation', () => {
             !node.hasClass('another-othermonth-class')
         );
     const styling = createStylingFromTheme({
-      container: 'datepicker',
-      interactionDisabled: 'interaction-disabled',
-      navBar: 'navbar',
-      navButtonPrev: 'prev',
-      navButtonNext: 'next',
-      month: 'month',
-      caption: 'caption',
-      weekdays: 'weekdays',
-      weekdaysRow: 'weekdaysRow',
-      weekday: 'weekday',
-      body: 'body',
-      week: 'week',
-      day: ({ className }, day, modifiers) => ({
+      dayPickerContainer: 'datepicker',
+      dayPickerNavBar: 'navbar',
+      dayPickerMonth: 'month',
+      dayPickerCaption: 'caption',
+      dayPickerWeekdays: 'weekdays',
+      dayPickerWeekdaysRow: 'weekdaysRow',
+      dayPickerWeekday: 'weekday',
+      dayPickerMonthWrapper: 'body',
+      dayPickerWeek: 'week',
+      dayPickerDay: ({ className }, day, modifiers) => ({
         className: cn(
           className,
           'day another-day-class',
           modifiers.outside && 'othermonth another-othermonth-class'
         ),
       }),
-      today: 'today',
-      selected: 'selected',
-      outside: 'othermonth another-othermonth-class',
-      disabled: 'disabled',
     });
 
     it('should call `focusNextDay()` when the RIGHT key is pressed on a day', () => {

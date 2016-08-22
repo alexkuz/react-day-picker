@@ -50,9 +50,9 @@ export default class Weekdays extends Component {
     }
 
     return (
-      <div {...styling('weekdays', locale)} role="rowgroup">
-        <div {...styling('weekdaysRow', locale)} role="row">
-          {showWeekNumbers && <div {...styling('weekday', locale)} />}
+      <div {...styling('dayPickerWeekdays', locale)} role="rowgroup">
+        <div {...styling('dayPickerWeekdaysRow', locale)} role="row">
+          {showWeekNumbers && <div {...styling('dayPickerWeekday', locale)} />}
           {days}
         </div>
       </div>

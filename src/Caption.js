@@ -42,7 +42,7 @@ export default class Caption extends Component {
   render() {
     const { styling, date, months, locale, localeUtils, onClick } = this.props;
     return (
-      <div {...styling('caption', date, locale)} role="heading">
+      <div {...styling('dayPickerCaption', date, locale)} role="heading">
         <div onClick={onClick} onKeyUp={this.handleKeyUp}>
           {months
             ? `${months[date.getMonth()]} ${date.getFullYear()}`
