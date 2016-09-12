@@ -111,6 +111,7 @@ export default class DayPicker extends Component {
     onCaptionClick: PropTypes.func,
     onWeekClick: PropTypes.func,
     onTodayButtonClick: PropTypes.func,
+    theme: PropTypes.any,
   };
 
   static defaultProps = {
