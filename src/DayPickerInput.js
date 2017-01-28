@@ -437,7 +437,7 @@ export default class DayPickerInput extends React.Component {
 
     return (
       <div
-        {...styling('dayPickerInputContainer')}
+        {...styling('dayPickerInput')}
         onMouseDown={this.handleContainerMouseDown}
       >
         <Input

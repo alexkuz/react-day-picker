@@ -469,6 +469,7 @@ export default class DayPicker extends Component {
       locale,
       localeUtils,
     };
+
     return React.isValidElement(navbarElement)
       ? React.cloneElement(navbarElement, props)
       : React.createElement(navbarElement, props);
