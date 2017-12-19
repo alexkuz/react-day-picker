@@ -1,10 +1,9 @@
+<table><tr><th align="center" width="1000">Themeable version of <a href="https://github.com/gpbl/react-day-picker">react-day-picker</a></th></tr></table>
+
 <p align="center">
 <a href="http://react-day-picker.js.org"><img width="80" style="margin: 0 auto" alt="title" src="https://user-images.githubusercontent.com/120693/33364057-0d4a962a-d4e3-11e7-8506-0f9aede2b345.png"></a>
 </p>
 <h1 align="center">react-day-picker</h1>
-
-<table><tr><td>Themeable version of [react-day-picker](https://github.com/gpbl/react-day-picker)</td></tr></table>
-
 <p align="center">
   Flexible date picker component for <a href="https://facebook.github.io/react/">React</a>.
   <br />
