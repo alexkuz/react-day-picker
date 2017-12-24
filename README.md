@@ -17,10 +17,10 @@
   <a href="http://react-day-picker.js.org">Documentation</a> | <a href="http://react-day-picker.js.org/examples/basic">Examples</a> | <a href="http://react-day-picker.js.org/api/DayPicker">API</a> | <a href="http://react-day-picker.js.org/changelog">Changelog</a>
 </p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/react-day-picker">
+  <a href="https://www.npmjs.com/package/react-day-picker-themeable">
     <img src="https://img.shields.io/npm/v/react-day-picker.svg?style=flat-square" alt="npm version">
   </a>
-  <a href="http://npm-stat.com/charts.html?package=react-day-picker">
+  <a href="http://npm-stat.com/charts.html?package=react-day-picker-themeable">
     <img src="https://img.shields.io/npm/dm/react-day-picker.svg?style=flat-square" alt="npm downloads">
   </a>
   <a href="https://circleci.com/gh/gpbl/react-day-picker">

@@ -36,8 +36,16 @@ export default class Weekday extends Component {
     }
 
     return (
-      <div {...styling('dayPickerWeekday', weekday, locale)} role="columnheader">
-        <abbr title={title}>{content}</abbr>
+      <div
+        {...styling('dayPickerWeekday', weekday, locale)}
+        role="columnheader"
+      >
+        <abbr
+          {...styling('dayPickerWeekdayAbbr', weekday, locale)}
+          title={title}
+        >
+          {content}
+        </abbr>
       </div>
     );
   }

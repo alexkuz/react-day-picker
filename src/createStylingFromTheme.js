@@ -144,6 +144,11 @@ function getStylingFromBase16(base16Theme) {
       style,
     }),
 
+    dayPickerCaptionInner: ({ style, className }) => ({
+      className: cn('DayPicker-CaptionInner', className),
+      style,
+    }),
+
     dayPickerDay: ({ style, className }, day, modifiers) => ({
       className: cn(
         'DayPicker-Day',

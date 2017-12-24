@@ -67,7 +67,7 @@
   margin-bottom: 0.5rem;
 }
 
-.DayPicker-Caption > div {
+.DayPicker-CaptionInner {
   font-size: 1.15rem;
   font-weight: 500;
 }

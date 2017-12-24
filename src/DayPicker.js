@@ -70,7 +70,7 @@ export default class DayPicker extends Component {
 
     styling: PropTypes.func,
     className: PropTypes.string,
-    theme: PropTypes.string,
+    theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     containerProps: PropTypes.object,
     tabIndex: PropTypes.number,
@@ -111,7 +111,6 @@ export default class DayPicker extends Component {
     onCaptionClick: PropTypes.func,
     onWeekClick: PropTypes.func,
     onTodayButtonClick: PropTypes.func,
-    theme: PropTypes.any,
   };
 
   static defaultProps = {
@@ -407,7 +406,7 @@ export default class DayPicker extends Component {
     if (this.props.onDayMouseEnter) {
       this.props.onDayMouseEnter(e, day, dayState);
     }
-  }
+  };
 
   handleDayMouseLeave = (e, day, dayState) => {
     this.setState({ hoveredDay: null });
@@ -415,7 +414,7 @@ export default class DayPicker extends Component {
     if (this.props.onDayMouseLeave) {
       this.props.onDayMouseLeave(e, day, dayState);
     }
-  }
+  };
 
   handleOutsideDayClick(day) {
     const { currentMonth } = this.state;
@@ -432,7 +431,6 @@ export default class DayPicker extends Component {
     const today = new Date();
     const month = new Date(today.getFullYear(), today.getMonth());
     this.showMonth(month);
-    e.target.blur();
     if (this.props.onTodayButtonClick) {
       e.persist();
       this.props.onTodayButtonClick(

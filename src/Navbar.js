@@ -29,6 +29,11 @@ export default class Navbar extends Component {
     theme: PropTypes.any,
   };
 
+  state = {
+    prevHover: false,
+    nextHover: false,
+  };
+
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.labels !== this.props.labels ||
@@ -107,9 +112,16 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.previousMonth}
         key="previous"
-        {...navBarStyling('dayPickerNavButton', 'prev', shouldShowPrevious)}
+        {...navBarStyling(
+          'dayPickerNavButton',
+          'prev',
+          shouldShowPrevious,
+          this.state.prevHover
+        )}
         onKeyDown={shouldShowPrevious ? previousKeyDownHandler : undefined}
         onClick={shouldShowPrevious ? previousClickHandler : undefined}
+        onMouseEnter={() => this.setState({ prevHover: true })}
+        onMouseLeave={() => this.setState({ prevHover: false })}
       />
     );
 
@@ -119,9 +131,16 @@ export default class Navbar extends Component {
         role="button"
         aria-label={labels.nextMonth}
         key="right"
-        {...navBarStyling('dayPickerNavButton', 'next', shouldShowNext)}
+        {...navBarStyling(
+          'dayPickerNavButton',
+          'next',
+          shouldShowNext,
+          this.state.nextHover
+        )}
         onKeyDown={shouldShowNext ? nextKeyDownHandler : undefined}
         onClick={shouldShowNext ? nextClickHandler : undefined}
+        onMouseEnter={() => this.setState({ nextHover: true })}
+        onMouseLeave={() => this.setState({ nextHover: false })}
       />
     );
 
